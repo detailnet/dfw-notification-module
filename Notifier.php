@@ -59,10 +59,8 @@ class Notifier implements
         }
 
         $sender = $senders->get($notification->getType());
+        $call = $sender->send($notification->getParams());
 
-        var_dump($sender->send($notification->getParams()));
-        exit;
+        return $call;
     }
-
-
 }
