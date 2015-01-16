@@ -36,12 +36,13 @@ class Notifier implements
 
     /**
      * @param string $type
+     * @param array $payload
      * @param array $params
      * @return Notification
      */
-    public function createNotification($type, array $params = array())
+    public function createNotification($type, array $payload, array $params = array())
     {
-        return new Notification($type, $params);
+        return new Notification($type, $payload, $params);
     }
 
     /**
@@ -59,7 +60,7 @@ class Notifier implements
         }
 
         $sender = $senders->get($notification->getType());
-        $call = $sender->send($notification->getParams());
+        $call = $sender->send($notification->getPayload(), $notification->getParams());
 
         return $call;
     }

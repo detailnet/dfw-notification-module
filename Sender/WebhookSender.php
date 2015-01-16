@@ -6,7 +6,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\BadResponseException as HttpException;
 
 use Application\Job\Application\Notification\Call;
-//use Application\Job\Application\Notification\Exception;
+use Application\Job\Application\Notification\Exception;
 
 class WebhookSender extends BaseSender
 {
@@ -15,10 +15,6 @@ class WebhookSender extends BaseSender
 
     protected $requiredParams = array(
         self::PARAM_URL,
-    );
-
-    protected $defaultParams = array(
-        self::PARAM_METHOD => 'GET',
     );
 
     /**
@@ -50,7 +46,12 @@ class WebhookSender extends BaseSender
         $this->httpClient = $httpClient;
     }
 
-    public function send(array $params = array())
+    /**
+     * @param array $payload
+     * @param array $params
+     * @return Call
+     */
+    public function send(array $payload, array $params = array())
     {
         $params = $this->validateParams($params);
 
@@ -60,15 +61,19 @@ class WebhookSender extends BaseSender
 
         /** @todo Validate URL? */
         $url = $getParam(self::PARAM_URL);
-        $method = strtoupper($getParam(self::PARAM_METHOD, 'GET'));
-
         $httpClient = $this->getHttpClient();
-        $httpRequest = $httpClient->createRequest($method, $url);
-
         $error = null;
 
         try {
-            $httpResponse = $httpClient->send($httpRequest);
+            $httpResponse = $httpClient->post(
+                $url,
+                array(
+                    'body' => $this->encodePayload($payload),
+                    'headers' => array(
+                        'Content-Type' => 'application/json',
+                    ),
+                )
+            );
 
         } catch (HttpException $e) {
             $error = $e;
@@ -77,5 +82,44 @@ class WebhookSender extends BaseSender
         $call = new Call($error);
 
         return $call;
+    }
+
+    /**
+     * @param array $payload
+     * @return string
+     */
+    protected function encodePayload(array $payload)
+    {
+        $body = json_encode($payload);
+        $error = json_last_error();
+
+        if ($error !== JSON_ERROR_NONE) {
+            switch (json_last_error()) {
+                case JSON_ERROR_DEPTH:
+                    $message = 'Maximum stack depth exceeded';
+                    break;
+                case JSON_ERROR_STATE_MISMATCH:
+                    $message = 'Underflow or the modes mismatch';
+                    break;
+                case JSON_ERROR_CTRL_CHAR:
+                    $message = 'Unexpected control character found';
+                    break;
+                case JSON_ERROR_SYNTAX:
+                    $message = 'Syntax error, malformed JSON';
+                    break;
+                case JSON_ERROR_UTF8:
+                    $message = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+                    break;
+                default:
+                    $message = 'Unknown error';
+                    break;
+            }
+
+            throw new Exception\RuntimeException(
+                'Failed to encode payload to JSON; ' . $message
+            );
+        }
+
+        return $body;
     }
 }
