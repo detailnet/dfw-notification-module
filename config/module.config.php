@@ -14,8 +14,14 @@ return array(
             'Detail\Notification\Options\ModuleOptions' => 'Detail\Notification\Factory\Options\ModuleOptionsFactory',
         ),
         'initializers' => array(
+            'Detail\Notification\Service\NotifierInitializer',
         ),
         'shared' => array(
+        ),
+    ),
+    'controllers' => array(
+        'initializers' => array(
+            'Detail\Notification\Service\NotifierInitializer',
         ),
     ),
     'detail_notification' => array(
