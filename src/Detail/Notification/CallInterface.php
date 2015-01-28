@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Job\Application\Notification;
+namespace Detail\Notification;
 
 use DateTime;
 use Exception;

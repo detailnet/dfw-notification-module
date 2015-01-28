@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Job\Application\Notification\Sender;
+namespace Detail\Notification\Sender;
 
 interface SenderInterface
 {

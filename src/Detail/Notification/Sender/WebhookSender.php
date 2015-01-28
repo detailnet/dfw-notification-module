@@ -1,12 +1,12 @@
 <?php
 
-namespace Application\Job\Application\Notification\Sender;
+namespace Detail\Notification\Sender;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\BadResponseException as HttpException;
 
-use Application\Job\Application\Notification\Call;
-use Application\Job\Application\Notification\Exception;
+use Detail\Notification\Call;
+use Detail\Notification\Exception;
 
 class WebhookSender extends BaseSender
 {

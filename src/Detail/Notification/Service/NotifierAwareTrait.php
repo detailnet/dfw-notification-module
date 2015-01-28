@@ -1,8 +1,8 @@
 <?php
 
-namespace Application\Job\Application\Notification\Service;
+namespace Detail\Notification\Service;
 
-use Application\Job\Application\Notification\NotifierInterface;
+use Detail\Notification\NotifierInterface;
 
 trait NotifierAwareTrait
 {

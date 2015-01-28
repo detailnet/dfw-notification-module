@@ -1,10 +1,10 @@
 <?php
 
-namespace Application\Job\Application\Notification;
+namespace Detail\Notification;
 
 use Zend\ServiceManager\AbstractPluginManager;
 
-use Application\Job\Application\Notification\Sender\SenderInterface;
+use Detail\Notification\Sender\SenderInterface;
 
 /**
  * Plugin manager implementation for notification senders.

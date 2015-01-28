@@ -1,8 +1,8 @@
 <?php
 
-namespace Application\Job\Application\Notification\Sender;
+namespace Detail\Notification\Sender;
 
-use Application\Job\Application\Notification\Exception;
+use Detail\Notification\Exception;
 
 abstract class BaseSender implements
     SenderInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Job\Application\Notification\Service;
+namespace Detail\Notification\Service;
 
 use Zend\ServiceManager\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -23,9 +23,9 @@ class NotifierInitializer implements
                 $serviceLocator = $serviceLocator->getServiceLocator();
             }
 
-            /** @var \Application\Job\Application\Notification\Notifier $notifier */
+            /** @var \Detail\Notification\Notifier $notifier */
             $notifier = $serviceLocator->get(
-                'Application\Job\Application\Notification\Notifier'
+                'Detail\Notification\Notifier'
             );
 
             $instance->setNotifier($notifier);

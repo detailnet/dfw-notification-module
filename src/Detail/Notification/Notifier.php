@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Job\Application\Notification;
+namespace Detail\Notification;
 
 class Notifier implements
     NotifierInterface
