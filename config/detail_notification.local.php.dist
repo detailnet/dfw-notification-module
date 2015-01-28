@@ -2,5 +2,10 @@
 
 return array(
     'detail_notification' => array(
+        'senders' => array(
+            'webhook' => array(
+                'user_agent' => 'your-app-here/0.1.0',
+            ),
+        ),
     ),
 );
