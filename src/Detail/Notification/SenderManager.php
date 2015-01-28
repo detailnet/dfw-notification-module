@@ -11,7 +11,8 @@ use Detail\Notification\Sender\SenderInterface;
  *
  * Enforces that senders retrieved are instances of SenderInterface.
  */
-class SenderManager extends AbstractPluginManager
+class SenderManager extends AbstractPluginManager implements
+    SenderManagerInterface
 {
     /**
      * Whether or not to share by default
@@ -25,7 +26,15 @@ class SenderManager extends AbstractPluginManager
      */
     public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
     {
-        return parent::has($name, true, false); // Don't look in peering service managers
+        return parent::has($name, $checkAbstractFactories, false); // Don't look in peering service managers
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasSender($type)
+    {
+        return $this->has($type);
     }
 
     /**
@@ -34,6 +43,14 @@ class SenderManager extends AbstractPluginManager
     public function get($name, $options = array(), $usePeeringServiceManagers = true)
     {
         return parent::get($name, $options, false); // Don't look in peering service managers
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSender($type, $options = array())
+    {
+        return $this->get($type, $options);
     }
 
     /**

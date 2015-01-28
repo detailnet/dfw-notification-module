@@ -2,6 +2,6 @@
 
 namespace Detail\Notification\Exception;
 
-interface ExceptionInterface
+class ConfigException extends RuntimeException
 {
 }
