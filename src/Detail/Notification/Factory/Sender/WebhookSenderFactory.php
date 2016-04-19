@@ -10,7 +10,8 @@ use GuzzleHttp\Client as HttpClient;
 
 use Detail\Notification\Sender\WebhookSender as Sender;
 
-class WebhookSenderFactory implements FactoryInterface
+class WebhookSenderFactory implements
+    FactoryInterface
 {
     /**
      * {@inheritDoc}
