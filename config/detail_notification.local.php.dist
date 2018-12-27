@@ -1,11 +1,11 @@
 <?php
 
-return array(
-    'detail_notification' => array(
-        'senders' => array(
-            'webhook' => array(
+return [
+    'detail_notification' => [
+        'senders' => [
+            'webhook' => [
                 'user_agent' => 'your-app-here/0.1.0',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
