@@ -9,8 +9,8 @@ return [
         'invokables' => [
         ],
         'factories' => [
-            'Detail\Notification\Notifier'              => 'Detail\Notification\Factory\NotifierFactory',
-            'Detail\Notification\SenderManager'         => 'Detail\Notification\Factory\SenderManagerFactory',
+            'Detail\Notification\Notifier' => 'Detail\Notification\Factory\NotifierFactory',
+            'Detail\Notification\SenderManager' => 'Detail\Notification\Factory\SenderManagerFactory',
             'Detail\Notification\Options\ModuleOptions' => 'Detail\Notification\Factory\Options\ModuleOptionsFactory',
         ],
         'initializers' => [
@@ -21,7 +21,7 @@ return [
     ],
     'controllers' => [
         'initializers' => [
-            'Detail\Notification\Service\NotifierInitializer',
+            'Detail\Notification\NotifierInitializer',
         ],
     ],
     'detail_notification' => [
