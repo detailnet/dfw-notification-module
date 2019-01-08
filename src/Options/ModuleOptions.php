@@ -2,7 +2,8 @@
 
 namespace Detail\Notification\Options;
 
-use Detail\Core\Options\AbstractOptions;
+use Zend\Stdlib\AbstractOptions;
+
 use Detail\Notification\Exception;
 
 class ModuleOptions extends AbstractOptions
@@ -10,12 +11,12 @@ class ModuleOptions extends AbstractOptions
     /**
      * @var array
      */
-    protected $senderFactories = array();
+    protected $senderFactories = [];
 
     /**
      * @var array
      */
-    protected $senders = array();
+    protected $senders = [];
 
     /**
      * @return array
@@ -36,7 +37,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * @param string $type
      * @param string $optionsClass
-     * @return array|\Detail\Core\Options\AbstractOptions|null
+     * @return array|AbstractOptions|null
      * @throws Exception\RuntimeException
      */
     public function getSender($type, $optionsClass = null)

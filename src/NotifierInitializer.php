@@ -17,7 +17,6 @@ class NotifierInitializer implements
     public function __invoke(ContainerInterface $container, $instance)
     {
         if ($instance instanceof NotifierAwareInterface) {
-
             /** @var Notifier $notifier */
             $notifier = $container->get(Notifier::CLASS);
 

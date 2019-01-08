@@ -2,24 +2,26 @@
 
 namespace Detail\Notification\Factory;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 use Detail\Notification\Notifier;
+use Detail\Notification\SenderManager;
 
-class NotifierFactory implements FactoryInterface
+class NotifierFactory implements
+    FactoryInterface
 {
     /**
-     * {@inheritDoc}
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
      * @return Notifier
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-//        /** @var \Detail\Notification\Options\ModuleOptions $moduleOptions */
-//        $moduleOptions = $serviceLocator->get('Detail\Notification\Options\ModuleOptions');
-
-        /** @var \Detail\Notification\SenderManager $senders */
-        $senders = $serviceLocator->get('Detail\Notification\SenderManager');
+        /** @var SenderManager $senders */
+        $senders = $container->get(SenderManager::CLASS);
 
         return new Notifier($senders);
     }

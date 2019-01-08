@@ -2,6 +2,8 @@
 
 namespace DetailTest\Notification\Options;
 
+use Detail\Notification\Options;
+
 class ModuleOptionsTest extends OptionsTestCase
 {
     /**
@@ -12,17 +14,17 @@ class ModuleOptionsTest extends OptionsTestCase
     protected function setUp()
     {
         $this->options = $this->getOptions(
-            'Detail\Notification\Options\ModuleOptions',
-            array(
+            Options\ModuleOptions::CLASS,
+            [
                 'getSenderFactories',
                 'setSenderFactories',
-            )
+            ]
         );
     }
 
-    public function testSenderFactoriesCanBeSet()
+    public function testSenderFactoriesCanBeSet(): void
     {
-        $senderFactories = array('a-sender-type' => 'Some/Sender/Class');
+        $senderFactories = ['a-sender-type' => 'Some/Sender/Class'];
 
         $this->assertTrue(is_array($this->options->getSenderFactories()));
         $this->assertEmpty($this->options->getSenderFactories());

@@ -2,34 +2,36 @@
 
 namespace DetailTest\Notification\Factory\Options;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\ServiceManager;
 
 use Detail\Notification\Factory\Options\ModuleOptionsFactory;
+use Detail\Notification\Options;
 
 class ModuleOptionsFactoryTest extends TestCase
 {
-    public function testCreateService()
+    public function testCreateService(): void
     {
-        $moduleOptions = $this->createModuleOptions(array('detail_notification' => array()));
+        $moduleOptions = $this->createModuleOptions(['detail_notification' => []]);
 
-        $this->assertInstanceOf('Detail\Notification\Options\ModuleOptions', $moduleOptions);
+        $this->assertInstanceOf(Options\ModuleOptions::CLASS, $moduleOptions);
     }
 
-    public function testCreateServiceThrowsExceptionForInvalidConfiguration()
+    public function testCreateServiceThrowsExceptionForInvalidConfiguration(): void
     {
-        $this->setExpectedException('Detail\Notification\Exception\ConfigException');
+        $this->expectException(ServiceNotCreatedException::CLASS);
         $this->createModuleOptions();
     }
 
-    protected function createModuleOptions(array $options = array())
+    protected function createModuleOptions(array $options = []): Options\ModuleOptions
     {
         $serviceManager = new ServiceManager();
         $serviceManager->setService('Config', $options);
 
         $factory = new ModuleOptionsFactory();
 
-        return $factory->createService($serviceManager);
+        return $factory->__invoke($serviceManager, Options\ModuleOptions::CLASS);
     }
 }

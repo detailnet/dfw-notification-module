@@ -2,7 +2,7 @@
 
 namespace Detail\Notification\Options\Sender;
 
-use Detail\Core\Options\AbstractOptions;
+use Zend\Stdlib\AbstractOptions;
 
 class WebhookSenderOptions extends AbstractOptions
 {

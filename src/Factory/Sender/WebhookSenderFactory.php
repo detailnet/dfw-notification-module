@@ -2,43 +2,38 @@
 
 namespace Detail\Notification\Factory\Sender;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Interop\Container\ContainerInterface;
+
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 use GuzzleHttp\Client as HttpClient;
 
+use Detail\Notification\Options\ModuleOptions;
+use Detail\Notification\Options\Sender\WebhookSenderOptions;
 use Detail\Notification\Sender\WebhookSender as Sender;
 
 class WebhookSenderFactory implements
     FactoryInterface
 {
     /**
-     * {@inheritDoc}
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
      * @return Sender
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if ($serviceLocator instanceof ServiceLocatorAwareInterface) {
-            $serviceLocator = $serviceLocator->getServiceLocator();
-        }
+        /** @var ModuleOptions $moduleOptions */
+        $moduleOptions = $container->get(ModuleOptions::CLASS);
 
-        /** @var \Detail\Notification\Options\ModuleOptions $moduleOptions */
-        $moduleOptions = $serviceLocator->get('Detail\Notification\Options\ModuleOptions');
-
-        /** @var \Detail\Notification\Options\Sender\WebhookSenderOptions $senderOptions */
-        $senderOptions = $moduleOptions->getSender(
-            'webhook',
-            'Detail\Notification\Options\Sender\WebhookSenderOptions'
-        );
+        /** @var WebhookSenderOptions $senderOptions */
+        $senderOptions = $moduleOptions->getSender('webhook', WebhookSenderOptions::CLASS);
 
         /** @todo Fetch from ServiceLocator by configurable name (provided through options) */
-        $httpClient = new HttpClient();
-
-        /** @todo Make configurable */
-        $httpClient->setDefaultOption(
-            'headers',
-            array('User-Agent' => $senderOptions->getUserAgent())
+        $httpClient = new HttpClient(
+            [
+                'headers' => ['User-Agent' => $senderOptions->getUserAgent()],
+            ]
         );
 
         return new Sender($httpClient);

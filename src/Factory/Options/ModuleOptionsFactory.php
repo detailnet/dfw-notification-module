@@ -2,24 +2,27 @@
 
 namespace Detail\Notification\Factory\Options;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
 
-use Detail\Notification\Exception\ConfigException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Detail\Notification\Options\ModuleOptions;
 
-class ModuleOptionsFactory implements FactoryInterface
+class ModuleOptionsFactory implements
+    FactoryInterface
 {
     /**
-     * {@inheritDoc}
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
      * @return ModuleOptions
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('Config');
+        $config = $container->get('Config');
 
         if (!isset($config['detail_notification'])) {
-            throw new ConfigException('Config for Detail\Notification is not set');
+            throw new ServiceNotCreatedException('Config for Detail\Notification is not set');
         }
 
         return new ModuleOptions($config['detail_notification']);
