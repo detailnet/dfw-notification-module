@@ -14,7 +14,7 @@ return [
             'Detail\Notification\Options\ModuleOptions' => 'Detail\Notification\Factory\Options\ModuleOptionsFactory',
         ],
         'initializers' => [
-            'Detail\Notification\Service\NotifierInitializer',
+            'Detail\Notification\NotifierInitializer',
         ],
         'shared' => [
         ],
