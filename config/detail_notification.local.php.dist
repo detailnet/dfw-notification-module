@@ -5,6 +5,7 @@ return [
         'senders' => [
             'webhook' => [
                 'user_agent' => 'your-app-here/0.1.0',
+                'verify_ssl_cert' => true,
             ],
         ],
     ],

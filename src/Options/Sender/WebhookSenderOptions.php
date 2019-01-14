@@ -11,7 +11,10 @@ class WebhookSenderOptions extends AbstractOptions
      */
     protected $userAgent;
 
-    /** @todo Add 'verify' option for certificate validation ignore in dev environment */
+    /**
+     * @var bool
+     */
+    protected $verifySslCert = true;
 
     /**
      * @return string
@@ -27,5 +30,21 @@ class WebhookSenderOptions extends AbstractOptions
     public function setUserAgent($userAgent)
     {
         $this->userAgent = $userAgent;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getVerifySslCert()
+    {
+        return $this->verifySslCert;
+    }
+
+    /**
+     * @param bool $verify
+     */
+    public function setVerifySslCert($verify)
+    {
+        $this->verifySslCert = (bool) $verify;
     }
 }
