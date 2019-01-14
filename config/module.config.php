@@ -1,37 +1,37 @@
 <?php
 
-return array(
-    'service_manager' => array(
-        'abstract_factories' => array(
-        ),
-        'aliases' => array(
-        ),
-        'invokables' => array(
-        ),
-        'factories' => array(
-            'Detail\Notification\Notifier'              => 'Detail\Notification\Factory\NotifierFactory',
-            'Detail\Notification\SenderManager'         => 'Detail\Notification\Factory\SenderManagerFactory',
+return [
+    'service_manager' => [
+        'abstract_factories' => [
+        ],
+        'aliases' => [
+        ],
+        'invokables' => [
+        ],
+        'factories' => [
+            'Detail\Notification\Notifier' => 'Detail\Notification\Factory\NotifierFactory',
+            'Detail\Notification\SenderManager' => 'Detail\Notification\Factory\SenderManagerFactory',
             'Detail\Notification\Options\ModuleOptions' => 'Detail\Notification\Factory\Options\ModuleOptionsFactory',
-        ),
-        'initializers' => array(
-            'Detail\Notification\Service\NotifierInitializer',
-        ),
-        'shared' => array(
-        ),
-    ),
-    'controllers' => array(
-        'initializers' => array(
-            'Detail\Notification\Service\NotifierInitializer',
-        ),
-    ),
-    'detail_notification' => array(
-        'sender_factories' => array(
+        ],
+        'initializers' => [
+            'Detail\Notification\NotifierInitializer',
+        ],
+        'shared' => [
+        ],
+    ],
+    'controllers' => [
+        'initializers' => [
+            'Detail\Notification\NotifierInitializer',
+        ],
+    ],
+    'detail_notification' => [
+        'sender_factories' => [
             'webhook' => 'Detail\Notification\Factory\Sender\WebhookSenderFactory',
-        ),
-        'senders' => array(
-            'webhook' => array(
-                'user_agent' => 'dfw-notification/0.1.0',
-            ),
-        ),
-    ),
-);
+        ],
+        'senders' => [
+            'webhook' => [
+                'user_agent' => 'dfw-notification/1.0.0',
+            ],
+        ],
+    ],
+];
