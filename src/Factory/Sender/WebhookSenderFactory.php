@@ -33,6 +33,7 @@ class WebhookSenderFactory implements
         $httpClient = new HttpClient(
             [
                 'headers' => ['User-Agent' => $senderOptions->getUserAgent()],
+                //'verify' => $senderOptions->getVerify() /** @todo Enable as soon as option is available */
             ]
         );
 

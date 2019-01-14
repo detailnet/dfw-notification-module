@@ -11,6 +11,8 @@ class WebhookSenderOptions extends AbstractOptions
      */
     protected $userAgent;
 
+    /** @todo Add 'verify' option for certificate validation ignore in dev environment */
+
     /**
      * @return string
      */
